@@ -1,0 +1,52 @@
+/* Current narrow overview overrides, loaded after the prototype history CSS. */
+.research-overview .overview-intro{text-align:justify;text-align-last:left;-webkit-hyphens:none;hyphens:none}
+@media(max-width:1199px){
+  header{display:grid;grid-template-columns:auto 1fr 54px;grid-template-rows:auto auto;align-items:center;gap:8px 16px}
+  header .brand{grid-column:1;grid-row:1}
+  header .menu-toggle{display:block;position:fixed!important;top:14px;right:5vw;z-index:130;margin:0}
+  header .menu-toggle span{opacity:0}
+  header .menu-toggle::before,header .menu-toggle::after{content:"";position:absolute;left:10px;right:10px;height:1px;background:#d5e0e5;transition:transform 220ms ease,top 220ms ease}
+  header .menu-toggle::before{top:17px}
+  header .menu-toggle::after{top:27px}
+  header .menu-toggle[aria-expanded="true"]::before{top:22px;transform:rotate(45deg)}
+  header .menu-toggle[aria-expanded="true"]::after{top:22px;transform:rotate(-45deg)}
+  header .topics{position:static!important;grid-column:1/4;grid-row:2;width:100%;margin:0;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}
+  header .topics::-webkit-scrollbar{display:none}
+  .research-overview{padding-left:6vw!important;padding-right:6vw!important}
+  .research-overview h1{font-size:clamp(42px,11.5vw,56px)}
+  .research-overview .overview-intro{max-width:590px;font-size:18px}
+}
+
+/* v31 meaningful-content floor: match the 10px page-label scale or larger. */
+.topics span{font-size:10px}
+.tags{font-size:11px}
+.overview-more{font-size:10px}
+.master-menu .menu-utility,.master-menu .menu-legacy{font-size:10px}
+.research-publications h3,.research-publications li::before{font-size:10px}
+.publication-meta{font-size:11px}
+
+/* v43: desktop research topics return to an independent right-side rail. */
+body[data-position] > .topics{position:fixed!important;z-index:14;top:50%;right:4vw;left:auto;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:16px;width:auto;height:auto;margin:0;padding:0;transform:translateY(-50%);background:none;font-size:12px}
+body[data-position] > .topics a{padding:3px 12px 3px 0;border:0;border-right:2px solid rgba(255,255,255,.22);color:#aabac5;text-align:right;text-shadow:0 2px 6px #000;white-space:nowrap}
+body[data-position] > .topics a[aria-current]{color:#fff;border-color:#80e0e6}
+body[data-position] > .topics span{margin-right:6px;font-size:12px}
+@media(max-width:1199px){body[data-position] > .topics{z-index:99;top:76px;left:5vw;right:5vw;flex-direction:row;justify-content:flex-start;align-items:center;gap:18px;height:34px;transform:none;overflow-x:auto;scrollbar-width:none;background:linear-gradient(to bottom,rgba(5,14,24,.72),transparent)}body[data-position] > .topics a{padding:5px 0;border-right:0;border-bottom:1px solid transparent;text-align:left}body[data-position] > .topics::-webkit-scrollbar{display:none}}
+
+/* v48: restore gentle justification after widening the reading measures. */
+.deck,.research-detail .detail-intro,.research-detail .detail-body p{text-align:justify!important;text-align-last:left!important;-webkit-hyphens:none!important;hyphens:none!important}
+/* v78: smaller outer gutter and more of the viewport devoted to both reading areas. */
+@media(min-width:1200px){.scene:not(.research-overview){padding-left:3vw}body[data-details=panel] .research-detail{width:45vw;max-width:none}}
+@media(min-width:601px) and (max-width:1199px){body[data-position="quarter"] .copy.topic-hover{width:78vw;max-width:680px}.copy.topic-hover .deck,.copy.topic-hover .read-line,.copy.topic-hover .tags{width:100%;max-width:none}}
+
+/* v63: clearer narrow-mode invitation and an inset reading card. */
+.read-link{font-size:14px}
+.read-link{text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+@media(max-width:1199px){
+  body[data-details=panel] .research-detail{inset:116px 3vw 24px;width:auto;max-width:none;height:auto;max-height:calc(100dvh - 140px);border:1px solid rgba(148,177,191,.22);border-radius:12px;box-shadow:0 18px 70px rgba(0,0,0,.48)}
+  body[data-details=panel] .detail-bar{border-radius:11px 11px 0 0;padding:16px clamp(24px,5vw,54px)}
+  body[data-details=panel] .detail-content{padding:clamp(34px,5vw,58px) clamp(30px,7vw,82px) 64px}
+}
+@media(max-width:600px){
+  body[data-details=panel] .research-detail{inset:112px 12px 16px;max-height:calc(100dvh - 128px)}
+  body[data-details=panel] .detail-content{padding:30px 26px 52px}
+}

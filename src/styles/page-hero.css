@@ -1,0 +1,5 @@
+/* Shared public-page hero typography. Edit this file to keep all title pages aligned. */
+.page-hero-eyebrow{margin:0;color:#a9bec9;font-size:10px;line-height:1.4;letter-spacing:.2em;text-align:left;text-transform:uppercase}
+.page-hero-title{margin:12px 0 18px;color:#e7eef2;font:400 clamp(46px,6vw,88px)/.98 Georgia,serif;letter-spacing:-.045em}
+.page-hero-intro{max-width:590px;margin:0;color:#91a7b3;font:18px/1.65 Arial,sans-serif;text-align:justify;text-align-last:left;-webkit-hyphens:none;hyphens:none}
+@media(max-width:760px){.page-hero-title{font-size:clamp(42px,11.5vw,56px)}.page-hero-intro{font-size:18px}}

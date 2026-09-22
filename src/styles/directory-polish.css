@@ -1,0 +1,81 @@
+/* v23 directory polish: cover thumbnails, vertical team rows, hover menus. */
+.master-menu a{text-transform:uppercase;letter-spacing:.1em;font-size:11px}
+.master-menu .menu-legacy{font-size:9px}
+.publication-card{grid-template-columns:90px 1fr;gap:22px}
+.publication-card:not(.has-cover)>div:last-child{grid-column:2}
+.publication-thumb{display:grid;place-items:center;align-self:start;width:78px;min-height:104px;color:#69828e;font-size:9px;background:rgba(117,156,171,.055);border:1px solid var(--line);overflow:hidden}
+.publication-thumb img{width:100%;height:104px;object-fit:cover;object-position:center top}
+.citation cite{color:#b9e5ea;font-style:normal;font-weight:700}
+.year-group{grid-template-columns:0 minmax(0,1fr)}
+.year-group>h2{width:0;height:0;margin:0;padding:0;overflow:hidden;opacity:0;pointer-events:none}
+.publication-directory,.publication-section{width:calc(100% - 16vw);max-width:1120px;margin-left:auto;margin-right:auto}
+.publication-section{padding:2vh 0 7vh}.publication-section+.publication-section{border-top:1px solid var(--line)}
+.publication-section .section-heading{padding-top:34px}.publication-flat-list{border-top:1px solid var(--line)}
+.publication-card{position:relative}.publication-year-column{position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none}
+.people-grid{display:block;max-width:1120px;margin:0 auto;padding:2vh 8vw 10vh;background:transparent}
+.person-card{display:grid;grid-template-columns:220px 1fr;gap:44px;padding:34px 0;border-top:1px solid var(--line);background:transparent}
+.person-card>img,.portrait-placeholder{width:220px;height:275px;aspect-ratio:auto;object-fit:cover;object-position:center 20%;border-radius:7px}
+.person-copy{align-self:center;padding:12px 0 20px}
+footer .rice-link{display:flex;align-items:center;gap:9px;padding:0;background:transparent;border-radius:0}
+.alumni-section{width:calc(100% - 12vw);max-width:760px;margin:0 auto;padding:3vh 0 10vh;border-top:1px solid var(--line)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;padding:38px 0 24px}.section-heading h2{margin:0;font:400 40px Georgia,serif}
+.section-heading.section-heading-end{justify-content:flex-end}
+.opening-richtext .richtext-spacer{display:block;min-height:1.45em;margin:0;padding:0;line-height:1.45}
+.alumni-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line)}
+.alumni-card{display:grid;grid-template-columns:78px 1fr;align-items:center;gap:22px;min-height:104px;padding:15px 22px;background:#07101b}
+.alumni-card img,.alumni-initial{width:68px;height:68px;object-fit:cover;object-position:center 20%;border-radius:6px}.alumni-initial{display:grid;place-items:center;background:#102631;color:#6d929f;font:29px Georgia,serif}
+.alumni-card h3{margin:0;font-size:19px;font-weight:400}.alumni-card p{margin:5px 0 0;color:#829aa4;font-size:12px}
+.updates-list{max-width:1120px;margin:0 auto;padding:4vh 8vw 11vh}.update-card{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(34px,6vw,88px);align-items:center;padding:7vh 0;border-top:1px solid var(--line)}.update-card:not(.has-image){grid-template-columns:1fr}.update-card:nth-child(even) figure{order:2}.update-card figure{margin:0}.update-card figure img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;filter:saturate(.82) contrast(1.03)}.update-card figcaption{margin-top:9px;color:#718995;font-size:10px}.update-meta{margin:0 0 13px;color:#78bfc8;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.update-copy h2{margin:0 0 15px;font:400 clamp(28px,3.4vw,48px)/1.1 Georgia,serif;letter-spacing:-.025em}.update-summary{color:#b5c3c9;font-size:16px}.update-body{color:#8fa5af;font-size:13px}.update-body p{text-align:justify;text-align-last:left;-webkit-hyphens:none;hyphens:none}
+.update-card.image-compact{grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr)}.update-card.image-compact figure{max-width:360px}.update-card.image-large{grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr)}.update-url{margin:14px 0 0;color:#8fb7c1;font-size:14px;line-height:1.55;overflow-wrap:anywhere}.update-url a{text-decoration:underline;text-decoration-color:rgba(143,183,193,.55);text-underline-offset:3px}.update-url a:hover{color:#b9edf1;text-decoration-color:currentColor}
+.update-card.image-small,.update-card.image-profile{grid-template-columns:190px minmax(0,1fr)}.update-card.image-small:nth-child(even),.update-card.image-profile:nth-child(even){grid-template-columns:minmax(0,1fr) 190px}.update-card.image-small figure,.update-card.image-profile figure{width:190px;max-width:100%}.update-card.image-profile .update-image-frame{--update-ratio:4/5}
+.update-image-frame{--update-ratio:4/3;width:100%;aspect-ratio:var(--update-ratio);overflow:hidden;border-radius:8px}.update-card.aspect-square .update-image-frame{--update-ratio:1/1}.update-card.aspect-portrait .update-image-frame{--update-ratio:4/5}.update-image-frame img{width:100%!important;height:100%!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center!important;border-radius:0!important}
+.opening-location{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,42px);max-width:1120px;margin:0 auto;padding:6vh 8vw}.opening-location figure{margin:0}.opening-location img,.opening-location iframe{display:block;width:100%;height:clamp(260px,32vw,390px);border:0;border-radius:8px;object-fit:cover}.opening-location-note{grid-column:1/-1;max-width:820px;margin:0 auto;color:#829aa5;font-size:14px;line-height:1.7;text-align:justify;text-align-last:left;-webkit-hyphens:none;hyphens:none}.opening-content{max-width:900px;min-height:32vh;margin:0 auto;padding:7vh 8vw 12vh;color:#aebfc7;border-top:1px solid var(--line)}.opening-content h2{margin:0 0 34px;color:#e4edf0;font:400 clamp(28px,3.2vw,44px)/1.2 Georgia,serif;text-align:justify;text-align-last:left}.opening-richtext,.opening-richtext li{font-size:17px;line-height:1.8;text-align:justify;text-align-last:left;-webkit-hyphens:none;hyphens:none}.opening-richtext ul{margin:0;padding-left:1.35em}.opening-richtext li+li{margin-top:20px}.opening-richtext a{color:#9bdbe2;text-decoration:underline;text-underline-offset:3px}.opening-richtext u{text-decoration-thickness:1px;text-underline-offset:3px}@media(max-width:760px){.opening-location{grid-template-columns:1fr;padding-left:6vw;padding-right:6vw}.opening-content{padding-left:6vw;padding-right:6vw}.opening-location img,.opening-location iframe{height:280px}}
+@media(max-width:900px){
+  .people-grid{padding-left:6vw;padding-right:6vw}
+  .person-card{grid-template-columns:180px 1fr;gap:30px}
+  .person-card>img,.portrait-placeholder{width:180px;height:225px}
+  .alumni-section{width:88%;padding-left:0;padding-right:0}
+  .publication-directory,.publication-section{width:88%}.updates-list{padding-left:6vw;padding-right:6vw}
+}
+@media(max-width:620px){
+  .publication-card{grid-template-columns:64px 1fr;gap:14px}
+  .publication-thumb{width:58px;min-height:78px}
+  .publication-thumb img{height:78px}
+  .people-grid{display:block;padding-left:6vw;padding-right:6vw}
+  .person-card{display:grid;grid-template-columns:110px 1fr;gap:18px;border-left:0;border-right:0;border-bottom:0}
+  .person-card>img,.portrait-placeholder{width:110px;height:138px}
+  .person-copy{padding:3px 0 12px}
+  .person-copy h2{font-size:22px}
+  .bio{font-size:12px}
+  .alumni-grid{grid-template-columns:1fr}.update-card,.update-card.image-small,.update-card.image-profile,.update-card.image-compact,.update-card.image-large{grid-template-columns:1fr;gap:24px;padding:5vh 0}.update-card:nth-child(even) figure{order:0}.update-card.image-small figure,.update-card.image-profile figure{max-width:min(190px,72vw)}.update-card.image-compact figure{max-width:none}
+}
+
+.directory-hero>p:last-child{text-align:justify;text-align-last:left;-webkit-hyphens:none;hyphens:none}
+.menu-toggle{width:54px;height:46px;padding:15px 10px}
+
+/* v29 typography balance across directory pages. */
+body{font-size:16px}.page-label,.eyebrow{font-size:10px}.directory-hero h1{font-size:clamp(46px,6vw,88px)}.directory-hero>p:last-child{font-size:18px}
+.publication-card h3{font-size:19px}.authors{font-size:13px}.citation{font-size:12px}details{font-size:13px}
+.role{font-size:10px}.bio{font-size:14px}.person-links{font-size:12px}.person-copy h2{font-size:25px}
+.alumni-card h3{font-size:18px}.alumni-card p{font-size:12px}
+.update-meta{font-size:10px}.update-copy h2{font-size:clamp(26px,3vw,42px)}.update-summary{font-size:17px}.update-body{font-size:14px}
+footer{font-size:12px}
+
+/* v31 meaningful-content floor; footer metadata remains exempt. */
+.master-menu .menu-legacy,.publication-thumb,.role,.update-meta{font-size:10px}
+.page-label,.eyebrow{font-size:10px}
+.citation,.alumni-card p{font-size:12px}
+.update-card figcaption{font-size:10px}
+
+/* v34 People photo controls. Wagtail performs the crop; CSS preserves it. */
+.person-card{--photo-width:220px;--photo-ratio:4/5;grid-template-columns:var(--photo-width) 1fr}
+.person-card.photo-compact{--photo-width:170px}.person-card.photo-large{--photo-width:270px}
+.person-card.aspect-square{--photo-ratio:1/1}.person-card.aspect-landscape{--photo-ratio:4/3}
+.person-photo-frame{width:var(--photo-width);aspect-ratio:var(--photo-ratio);overflow:hidden;border-radius:7px}
+.person-photo-frame>img,.person-photo-frame>.portrait-placeholder{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+@media(max-width:900px){.person-card{--photo-width:180px}.person-card.photo-compact{--photo-width:145px}.person-card.photo-large{--photo-width:215px}}
+@media(max-width:620px){.person-card{--photo-width:110px}.person-card.photo-compact{--photo-width:88px}.person-card.photo-large{--photo-width:132px}}
+.opening-sections{display:grid;gap:32px}.opening-section{padding:0 0 28px;border-bottom:1px solid var(--line)}.opening-section:last-child{border-bottom:0}.opening-section h3{margin:0 0 14px;color:#dff4f6;font:500 clamp(19px,2vw,25px)/1.3 Arial,sans-serif;letter-spacing:.035em}.opening-section .opening-richtext>p:first-child{margin-top:0}.opening-section .opening-richtext>p:last-child{margin-bottom:0}
+.opening-section .opening-richtext{margin-left:clamp(14px,2vw,24px)}
+
+.opening-section .opening-richtext,.opening-section .opening-richtext li{text-align:left;text-align-last:auto}
