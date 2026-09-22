@@ -7,6 +7,9 @@ const overflowLinks = [...document.querySelectorAll('#master-menu [data-overflow
 const desktopNav = window.matchMedia('(hover: hover) and (pointer: fine)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let timer;
+let blockedUntil = 0;
+const overlayActive = () => document.body.classList.contains('detail-open') || document.body.classList.contains('figure-viewer-open');
+const menuBlocked = () => overlayActive() || performance.now() < blockedUntil;
 
 function enforceContentFontFloor() {
   const textElements = document.querySelectorAll('body :is(a,p,span,li,figcaption,summary,button,label,time,cite,small,dt,dd)');
@@ -72,14 +75,20 @@ function openMenu() {
 
 toggle?.addEventListener('click', event => {
   event.stopPropagation();
+  if (menuBlocked()) { event.preventDefault(); return; }
   if (menu.hidden) openMenu(); else closeMenu();
 });
-toggle?.addEventListener('pointerenter', event => { if(event.pointerType!=='touch') openMenu(); });
-toggle?.addEventListener('pointerleave', scheduleClose);
+toggle?.addEventListener('pointerenter', event => { if (desktopNav.matches && event.pointerType !== 'touch' && !menuBlocked()) openMenu(); });
+toggle?.addEventListener('pointerleave', event => { if (desktopNav.matches && event.pointerType !== 'touch') scheduleClose(); });
 menu?.addEventListener('pointerenter', cancelClose);
-menu?.addEventListener('pointerleave', scheduleClose);
+menu?.addEventListener('pointerleave', event => { if (desktopNav.matches && event.pointerType !== 'touch') scheduleClose(); });
 document.addEventListener('click', event => { if (menu && !menu.hidden && !menu.contains(event.target)) closeMenu(); });
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+document.addEventListener('site-menu-close', closeMenu);
+document.addEventListener('site-menu-suppress', event => {
+  blockedUntil = performance.now() + (event.detail?.duration ?? 450);
+  closeMenu();
+});
 desktopNav.addEventListener('change', syncNavigationMode);
 window.addEventListener('resize', layoutNavigation);
 syncNavigationMode();

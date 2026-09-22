@@ -108,34 +108,6 @@ const panelTimers = new WeakMap();
 const narrowScreen = matchMedia('(max-width: 1199px)');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const transitionDuration = 520;
-const menuToggle = document.querySelector('.menu-toggle');
-const masterMenu = document.getElementById('master-menu');
-let menuTimer;
-
-function closeMenu() {
-  if (!masterMenu || masterMenu.hidden) return;
-  masterMenu.classList.remove('is-open');
-  menuToggle.setAttribute('aria-expanded', 'false');
-  menuToggle.setAttribute('aria-label', 'Open website menu');
-  clearTimeout(menuTimer);
-  menuTimer = setTimeout(() => { masterMenu.hidden = true; }, 220);
-}
-
-function openMenu() {
-  if (!masterMenu) return;
-  clearTimeout(menuTimer);
-  masterMenu.hidden = false;
-  void masterMenu.offsetWidth;
-  masterMenu.classList.add('is-open');
-  menuToggle.setAttribute('aria-expanded', 'true');
-  menuToggle.setAttribute('aria-label', 'Close website menu');
-}
-
-menuToggle?.addEventListener('click', event => {
-  event.stopPropagation();
-  if (masterMenu.hidden) openMenu();
-  else closeMenu();
-});
 document.querySelectorAll('[data-scroll-target]').forEach(link => link.addEventListener('click', event => {
   const target = document.querySelector(link.dataset.scrollTarget);
   if (!target) return;
@@ -143,11 +115,6 @@ document.querySelectorAll('[data-scroll-target]').forEach(link => link.addEventL
   history.pushState(null, '', link.getAttribute('href'));
   glideTo(scrollY + target.getBoundingClientRect().top);
 }));
-menuToggle?.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') openMenu(); });
-menuToggle?.addEventListener('pointerleave', () => { clearTimeout(menuTimer); menuTimer = setTimeout(closeMenu, 180); });
-masterMenu?.addEventListener('pointerenter', () => clearTimeout(menuTimer));
-masterMenu?.addEventListener('pointerleave', () => { clearTimeout(menuTimer); menuTimer = setTimeout(closeMenu, 180); });
-
 function cancelHide() { clearTimeout(hideTimer); }
 
 function scheduleHide() {
@@ -163,15 +130,17 @@ function scheduleHide() {
 function closePanel(restore = true) {
   cancelHide();
   if (!activePanel) return;
+  if (narrowScreen.matches) document.dispatchEvent(new CustomEvent('site-menu-suppress', { detail: { duration: 450 } }));
   const panel = activePanel;
   const trigger = returnFocus;
   const hadFocus = panel.contains(document.activeElement);
   activePanel = null;
   hoverOpened = false;
   panel.classList.remove('is-visible');
-  panel.inert = true;
+  if (narrowScreen.matches) panel.classList.add('is-closing');
+  else panel.inert = true;
   clearTimeout(panelTimers.get(panel));
-  const finish = () => { panel.hidden = true; };
+  const finish = () => { panel.hidden = true; panel.inert = true; panel.classList.remove('is-closing'); };
   if (reducedMotion.matches) finish();
   else panelTimers.set(panel, setTimeout(finish, transitionDuration));
   panel.removeAttribute('aria-modal');
@@ -199,6 +168,7 @@ function openPanel(target, source) {
   target.setAttribute('aria-expanded', 'true');
   target.setAttribute('aria-disabled', 'true');
   clearTimeout(panelTimers.get(panel));
+  panel.classList.remove('is-closing');
   panel.hidden = false;
   panel.inert = false;
   void panel.offsetWidth;
@@ -206,6 +176,7 @@ function openPanel(target, source) {
   if (narrowScreen.matches) {
     panel.setAttribute('aria-modal', 'true');
     document.body.classList.add('detail-open');
+    document.dispatchEvent(new Event('site-menu-close'));
   }
   panel.scrollTop = 0;
   if (source !== 'hover') panel.querySelector('.close-detail').focus({ preventScroll: true });
@@ -247,6 +218,7 @@ document.querySelectorAll('.research-detail').forEach(panel => {
 
 function closeFigureViewer() {
   if (!figureViewer || figureViewer.hidden) return;
+  document.dispatchEvent(new CustomEvent('site-menu-suppress', { detail: { duration: 450 } }));
   figureViewer.hidden = true;
   document.body.classList.remove('figure-viewer-open');
   if (activePanel) activePanel.inert = false;
@@ -288,9 +260,10 @@ document.querySelectorAll('.research-figure-open').forEach(button => button.addE
   if (activePanel) activePanel.inert = true;
   figureViewer.hidden = false;
   document.body.classList.add('figure-viewer-open');
+  document.dispatchEvent(new Event('site-menu-close'));
   figureViewer.querySelector('.figure-viewer-close').focus({ preventScroll: true });
 }));
-figureViewer?.querySelector('.figure-viewer-close').addEventListener('click', event => { event.stopPropagation(); closeFigureViewer(); });
+figureViewer?.querySelector('.figure-viewer-close').addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); closeFigureViewer(); });
 figureViewer?.querySelector('.figure-viewer-prev').addEventListener('click', () => showFigure(figureIndex - 1));
 figureViewer?.querySelector('.figure-viewer-next').addEventListener('click', () => showFigure(figureIndex + 1));
 figureViewer?.addEventListener('click', event => { if (event.target === figureViewer) { event.stopPropagation(); closeFigureViewer(); } });
@@ -309,7 +282,6 @@ document.addEventListener('keydown', event => {
     }
     return;
   }
-  if (event.key === 'Escape' && masterMenu && !masterMenu.hidden) closeMenu();
   if (event.key === 'Tab' && activePanel?.getAttribute('aria-modal') === 'true') {
     const items = [...activePanel.querySelectorAll('button, a[href], input, textarea, select, [tabindex="0"]')];
     const first = items[0];
@@ -330,7 +302,6 @@ document.addEventListener('keydown', event => {
 
 document.addEventListener('click', event => {
   if (figureViewer && !figureViewer.hidden) return;
-  if (masterMenu && !masterMenu.hidden && !masterMenu.contains(event.target)) closeMenu();
   if (activePanel && !activePanel.contains(event.target) && !event.target.closest('.topic-hover')) closePanel(false);
 });
 
